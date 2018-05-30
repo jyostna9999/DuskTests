@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\User;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment('local', 'testing')) {
+            $this->app->register(DuskServiceProvider::class);
+        }
     }
 }
